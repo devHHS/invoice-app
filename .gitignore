@@ -34,3 +34,14 @@ build/
 
 ### macOS ###
 .DS_Store
+
+### teach workspace (개인 학습 기록, 비공개) ###
+CLAUDE.md
+MISSION.md
+NOTES.md
+RESOURCES.md
+/lessons/
+/reference/
+/assets/
+/learning-records/
+/docs/
