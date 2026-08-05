@@ -35,6 +35,11 @@ build/
 ### macOS ###
 .DS_Store
 
+### secrets ###
+.env
+.env.*
+!.env.example
+
 ### teach workspace (개인 학습 기록, 비공개) ###
 CLAUDE.md
 MISSION.md

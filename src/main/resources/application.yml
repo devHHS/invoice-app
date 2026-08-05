@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: invoice-app
+    datasource:
+        url: jdbc:postgresql://localhost:5432/invoice-db
+        username: compose-postgres
+        password: compose-postgres
+    jpa:
+      hibernate:
+          ddl-auto: update
+
