@@ -14,7 +14,7 @@ public class InvoiceController {
     }
 
     @PostMapping
-    public Invoice saveInvoice(@RequestBody Invoice invoice) {
+    public Invoice save(@RequestBody Invoice invoice) {
         return invoiceService.save(invoice);
     }
 
