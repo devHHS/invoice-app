@@ -11,3 +11,20 @@ Content-Type: application/json
   "issuedAt": "2026-08-12T10:00:00",
   "category": "카페"
 }
+
+### 단건 조회
+GET http://localhost:8080/invoices/1
+
+### 수정
+PUT http://localhost:8080/invoices/1
+Content-Type: application/json
+
+{
+  "storeName": "스타벅스 강남점",
+  "amount": 5000,
+  "issuedAt": "2026-08-14T10:00:00",
+  "category": "카페"
+}
+
+### 삭제
+DELETE http://localhost:8080/invoices/1

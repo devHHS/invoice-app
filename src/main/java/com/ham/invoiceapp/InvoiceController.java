@@ -22,4 +22,20 @@ public class InvoiceController {
     public List<Invoice> findAll() {
         return invoiceService.findAll();
     }
+
+    @GetMapping("/{id}")
+    public Invoice findById(@PathVariable Long id) {
+        return invoiceService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Invoice update(@PathVariable Long id, @RequestBody Invoice invoice) {
+        return invoiceService.update(id, invoice);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        invoiceService.delete(id);
+    }
+
 }

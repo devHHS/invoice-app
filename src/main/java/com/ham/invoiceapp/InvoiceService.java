@@ -20,4 +20,18 @@ public class InvoiceService {
     public List<Invoice> findAll() {
         return invoiceRepository.findAll();
     }
+
+    public Invoice findById(Long id) {
+        return invoiceRepository.findById(id).orElseThrow();
+    }
+
+    public Invoice update(Long id, Invoice invoice) {
+        invoice.setId(id);
+        return invoiceRepository.save(invoice);
+    }
+
+    public void delete(Long id) {
+        invoiceRepository.deleteById(id);
+    }
+
 }
