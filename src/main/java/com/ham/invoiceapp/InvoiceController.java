@@ -3,6 +3,7 @@ package com.ham.invoiceapp;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+// Controller: HTTP 요청/응답 처리 담당, 실제 로직은 Service에 위임
 @RestController
 @RequestMapping("/invoices")
 public class InvoiceController {

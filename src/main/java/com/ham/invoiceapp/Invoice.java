@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+// Entity: DB 테이블과 직접 매핑되는 객체, JPA/Hibernate가 관리
 @Entity
 public class Invoice {
     @Id

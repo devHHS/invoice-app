@@ -3,6 +3,7 @@ package com.ham.invoiceapp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+// DTO: 서버가 클라이언트에게 돌려주는 응답 데이터의 모양
 public class InvoiceResponse {
 
     private Long id;

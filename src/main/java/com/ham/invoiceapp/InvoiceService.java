@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// Service: 트랜잭션 경계와 비즈니스 로직 담당, Controller와 Repository 사이를 중개
 @Service
 public class InvoiceService {
 
