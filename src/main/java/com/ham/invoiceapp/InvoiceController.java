@@ -16,70 +16,22 @@ public class InvoiceController {
 
     @PostMapping
     public InvoiceResponse save(@RequestBody InvoiceRequest invoiceRequest) {
-        Invoice invoice = new Invoice();
-        invoice.setStoreName(invoiceRequest.getStoreName());
-        invoice.setAmount(invoiceRequest.getAmount());
-        invoice.setIssuedAt(invoiceRequest.getIssuedAt());
-        invoice.setCategory(invoiceRequest.getCategory());
-
-        Invoice savedInvoice = invoiceService.save(invoice);
-        InvoiceResponse invoiceResponse = new InvoiceResponse();
-        invoiceResponse.setId(savedInvoice.getId());
-        invoiceResponse.setStoreName(savedInvoice.getStoreName());
-        invoiceResponse.setAmount(savedInvoice.getAmount());
-        invoiceResponse.setIssuedAt(savedInvoice.getIssuedAt());
-        invoiceResponse.setCategory(savedInvoice.getCategory());
-
-        return invoiceResponse;
+        return invoiceService.save(invoiceRequest);
     }
 
     @GetMapping
     public List<InvoiceResponse> findAll() {
-        return invoiceService.findAll()
-                .stream()
-                .map(invoice -> {
-                    InvoiceResponse invoiceResponse = new InvoiceResponse();
-                    invoiceResponse.setId(invoice.getId());
-                    invoiceResponse.setStoreName(invoice.getStoreName());
-                    invoiceResponse.setAmount(invoice.getAmount());
-                    invoiceResponse.setIssuedAt(invoice.getIssuedAt());
-                    invoiceResponse.setCategory(invoice.getCategory());
-
-                    return invoiceResponse;
-                })
-                .toList();
+        return invoiceService.findAll();
     }
 
     @GetMapping("/{id}")
     public InvoiceResponse findById(@PathVariable Long id) {
-        Invoice invoice = invoiceService.findById(id);
-        InvoiceResponse invoiceResponse = new InvoiceResponse();
-        invoiceResponse.setId(invoice.getId());
-        invoiceResponse.setStoreName(invoice.getStoreName());
-        invoiceResponse.setAmount(invoice.getAmount());
-        invoiceResponse.setIssuedAt(invoice.getIssuedAt());
-        invoiceResponse.setCategory(invoice.getCategory());
-
-        return invoiceResponse;
+        return invoiceService.findById(id);
     }
 
     @PutMapping("/{id}")
     public InvoiceResponse update(@PathVariable Long id, @RequestBody InvoiceRequest invoiceRequest) {
-        Invoice invoice = new Invoice();
-        invoice.setStoreName(invoiceRequest.getStoreName());
-        invoice.setAmount(invoiceRequest.getAmount());
-        invoice.setIssuedAt(invoiceRequest.getIssuedAt());
-        invoice.setCategory(invoiceRequest.getCategory());
-
-        Invoice updatedInvoice = invoiceService.update(id, invoice);
-        InvoiceResponse invoiceResponse = new  InvoiceResponse();
-        invoiceResponse.setId(updatedInvoice.getId());
-        invoiceResponse.setStoreName(updatedInvoice.getStoreName());
-        invoiceResponse.setAmount(updatedInvoice.getAmount());
-        invoiceResponse.setIssuedAt(updatedInvoice.getIssuedAt());
-        invoiceResponse.setCategory(updatedInvoice.getCategory());
-
-        return invoiceResponse;
+        return invoiceService.update(id, invoiceRequest);
     }
 
     @DeleteMapping("/{id}")
