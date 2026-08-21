@@ -1,5 +1,5 @@
 ### 단건 조회
-GET http://localhost:8080/invoices/5
+GET http://localhost:8080/invoices/7
 
 ### 전체 조회
 GET http://localhost:8080/invoices
@@ -9,7 +9,7 @@ POST http://localhost:8080/invoices
 Content-Type: application/json
 
 {
-  "storeName": "Einstein Kaffee",
+  "storeName": "Cafe Bean",
   "amount": 3,
   "issuedAt": "2026-08-19T10:00:00",
   "category": "Cafe"
@@ -21,10 +21,10 @@ Content-Type: application/json
 
 {
   "storeName": "스타벅스 인천공항점",
-  "amount": 5000,
+  "amount": 3,
   "issuedAt": "2026-08-19T10:00:00",
   "category": "카페"
 }
 
 ### 삭제
-DELETE http://localhost:8080/invoices/1
+DELETE http://localhost:8080/invoices/9

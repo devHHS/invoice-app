@@ -1,5 +1,6 @@
 package com.ham.invoiceapp;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class InvoiceController {
     }
 
     @PostMapping
-    public InvoiceResponse save(@RequestBody InvoiceRequest invoiceRequest) {
+    public InvoiceResponse save(@Valid @RequestBody InvoiceRequest invoiceRequest) {
         return invoiceService.save(invoiceRequest);
     }
 
@@ -30,7 +31,7 @@ public class InvoiceController {
     }
 
     @PutMapping("/{id}")
-    public InvoiceResponse update(@PathVariable Long id, @RequestBody InvoiceRequest invoiceRequest) {
+    public InvoiceResponse update(@PathVariable Long id, @Valid @RequestBody InvoiceRequest invoiceRequest) {
         return invoiceService.update(id, invoiceRequest);
     }
 
