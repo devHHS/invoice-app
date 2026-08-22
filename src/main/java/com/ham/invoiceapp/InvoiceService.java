@@ -48,17 +48,24 @@ public class InvoiceService {
     }
 
     public InvoiceResponse findById(Long id) {
-        return toResponse(invoiceRepository.findById(id).orElseThrow());
+        return toResponse(invoiceRepository.findById(id).orElseThrow(() -> new InvoiceNotFoundException(id)));
     }
 
     public InvoiceResponse update(Long id, InvoiceRequest invoiceRequest) {
+        if (!invoiceRepository.existsById(id)) {
+            throw new InvoiceNotFoundException(id);
+        }
+
         Invoice invoice = toEntity(invoiceRequest);
         invoice.setId(id);
-
         return toResponse(invoiceRepository.save(invoice));
     }
 
     public void delete(Long id) {
+        if (!invoiceRepository.existsById(id)) {
+            throw new InvoiceNotFoundException(id);
+        }
+
         invoiceRepository.deleteById(id);
     }
 

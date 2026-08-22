@@ -1,5 +1,5 @@
 ### 단건 조회
-GET http://localhost:8080/invoices/7
+GET http://localhost:8080/invoices/9999
 
 ### 전체 조회
 GET http://localhost:8080/invoices
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### 수정
-PUT http://localhost:8080/invoices/7
+PUT http://localhost:8080/invoices/99999
 Content-Type: application/json
 
 {
@@ -27,4 +27,4 @@ Content-Type: application/json
 }
 
 ### 삭제
-DELETE http://localhost:8080/invoices/9
+DELETE http://localhost:8080/invoices/9999999
