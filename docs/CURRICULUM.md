@@ -52,7 +52,7 @@
 
 - [x] `InvoiceNotFoundException` 정의, Service(`findById`/`update`/`delete`)에서 던지기
 - [x] `@RestControllerAdvice` + `@ExceptionHandler`로 전역 처리 — 404 + JSON 에러 응답
-- [ ] Validation 실패(400)도 같은 응답 형태로 통일
+- [x] Validation 실패(400)도 같은 응답 형태로 통일
 
 ### Phase 5 — 마무리, Docker로 전체 실행
 
