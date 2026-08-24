@@ -38,10 +38,16 @@ public class InvoiceService {
         return toResponse(invoiceRepository.save(invoice));
     }
 
-    public List<InvoiceResponse> findAll() {
+    public List<InvoiceResponse> findAll(String storeName) {
+        if (storeName == null) {
+            return invoiceRepository.findAll()
+                    .stream()
+                    .map(this::toResponse)
+                    .toList();
+        }
         // this::toResponse는 invoice -> toResponse(invoice)를 줄여 쓴 메서드 참조 —
         // 리스트의 Invoice 원소마다 toResponse를 호출해 InvoiceResponse로 바꾼다
-        return invoiceRepository.findAll()
+        return invoiceRepository.findAllByStoreNameContaining(storeName)
                 .stream()
                 .map(this::toResponse)
                 .toList();

@@ -21,8 +21,8 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public List<InvoiceResponse> findAll() {
-        return invoiceService.findAll();
+    public List<InvoiceResponse> findAll(@RequestParam(required = false) String storeName) {
+        return invoiceService.findAll(storeName);
     }
 
     @GetMapping("/{id}")

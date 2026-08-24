@@ -1,5 +1,5 @@
 ### 단건 조회
-GET http://localhost:8080/invoices/9999
+GET http://localhost:8080/invoices?storeName=스타
 
 ### 전체 조회
 GET http://localhost:8080/invoices
