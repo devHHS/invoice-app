@@ -56,14 +56,14 @@
 
 ### Phase 5 — 마무리, Docker로 전체 실행
 
-- [ ] 백엔드 `Dockerfile` 작성 + `docker-compose.yml`에 통합
+- [x] 백엔드 `Dockerfile` 작성 + `docker-compose.yml`에 통합
 - [x] 검색 기능 (`findByStoreNameContaining`, 쿼리 메서드 이름만으로 SQL 자동 생성)
 - [ ] TODO 정리 (최소 커밋)
 - [ ] README 완성 (프로젝트 3줄 소개, 실행 방법, API 목록 표, 아키텍처 다이어그램, 배운 것/앞으로 할 것)
 - [ ] 월간 회고
 
 **Month 1 완료 조건**
-- [ ] `docker compose up` 하나로 API가 뜬다
+- [x] `docker compose up` 하나로 API가 뜬다
 - [ ] CRUD 5개 + 검색이 동작한다
 - [ ] 에러 응답 형식이 통일되어 있다
 - [ ] 요청이 Controller → Service → Repository → DB로 가는 흐름을 종이에 그릴 수 있다
