@@ -58,8 +58,8 @@
 
 - [x] 백엔드 `Dockerfile` 작성 + `docker-compose.yml`에 통합
 - [x] 검색 기능 (`findByStoreNameContaining`, 쿼리 메서드 이름만으로 SQL 자동 생성)
-- [ ] TODO 정리 (최소 커밋)
-- [ ] README 완성 (프로젝트 3줄 소개, 실행 방법, API 목록 표, 아키텍처 다이어그램, 배운 것/앞으로 할 것)
+- [x] TODO 정리 (최소 커밋) — 코드 전체 확인, 남은 TODO/FIXME 없음
+- [x] README 완성 (프로젝트 3줄 소개, 실행 방법, API 목록 표, 아키텍처 다이어그램, 배운 것)
 - [ ] 월간 회고
 
 **Month 1 완료 조건**
