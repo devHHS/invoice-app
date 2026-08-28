@@ -60,14 +60,14 @@
 - [x] 검색 기능 (`findByStoreNameContaining`, 쿼리 메서드 이름만으로 SQL 자동 생성)
 - [x] TODO 정리 (최소 커밋) — 코드 전체 확인, 남은 TODO/FIXME 없음
 - [x] README 완성 (프로젝트 3줄 소개, 실행 방법, API 목록 표, 아키텍처 다이어그램, 배운 것)
-- [ ] 월간 회고
+- [x] 월간 회고
 
 **Month 1 완료 조건**
 - [x] `docker compose up` 하나로 API가 뜬다
-- [ ] CRUD 5개 + 검색이 동작한다
-- [ ] 에러 응답 형식이 통일되어 있다
-- [ ] 요청이 Controller → Service → Repository → DB로 가는 흐름을 종이에 그릴 수 있다
-- [ ] 28일 연속 커밋
+- [x] CRUD 5개 + 검색이 동작한다
+- [x] 에러 응답 형식이 통일되어 있다
+- [x] 요청이 Controller → Service → Repository → DB로 가는 흐름을 종이에 그릴 수 있다
+- [x] 28일 연속 커밋
 
 > 마지막 항목이 이 달의 전부다. 기능 개수는 중요하지 않다.
 
