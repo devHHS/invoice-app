@@ -73,9 +73,39 @@
 
 ---
 
-## Month 2 예고 — 모듈러 모놀리스
+## Month 2 — 모듈러 모놀리스
 
-W05부터 도메인 기준 패키지 재구성. 이 계획의 핵심 구간이다. (상세 항목은 Month 1 마무리 시점에 채운다.)
+도메인 기준 패키지 재구성. 지금은 계층별도 아니고 `com.ham.invoiceapp` 하나에 클래스 10개가 평평하게 들어있는 상태 — 여기서 "도메인 기준 패키지"로 옮겨간다. `Invoice` 하나뿐이면 재구성 실익이 잘 안 보이므로, 두 번째 도메인(`Vendor`)을 추가해 실제 모듈 경계를 체감하는 것까지 포함한다.
+
+### Phase 1 — 기존 코드를 `invoice/` 패키지로 이동
+
+- [ ] `Invoice`/`InvoiceRequest`/`InvoiceResponse`/`InvoiceController`/`InvoiceService`/`InvoiceRepository`/`InvoiceNotFoundException`/`GlobalExceptionHandler`/`ErrorResponse`를 `com.ham.invoiceapp.invoice` 패키지로 이동
+- [ ] 패키지 밖에서 쓸 필요 없는 클래스(예: `ErrorResponse`, 헬퍼 성격 클래스)를 package-private으로 좁혀서 캡슐화 확인
+
+**완료 조건**: 이동 후 `./mvnw spring-boot:run` + `requests.http` 전체 요청 재확인, 기존 동작 그대로 유지
+
+### Phase 2 — 두 번째 도메인(`Vendor`) 추가
+
+- [ ] `Vendor` 엔티티 신규 작성 (`com.ham.invoiceapp.vendor` 패키지), 지금 `Invoice.storeName`(문자열)을 `Vendor`와의 연관관계로 분리
+- [ ] `@ManyToOne` 연관관계 매핑 — "왜 문자열 대신 연관관계로 쪼개는가" 개념 정리
+- [ ] `Vendor` 자체도 3계층(Controller/Service/Repository) 갖춘 독립 도메인으로 완성
+
+**완료 조건**: `Invoice`가 `Vendor`를 참조하는 구조로 동작, 기존 검색 기능이 `Vendor` 기준으로도 동작
+
+### Phase 3 — 모듈 경계 규칙 정리
+
+- [ ] 도메인 간 참조 규칙 정리 (직접 참조 허용 범위, 순환 참조 금지)
+- [ ] `reference/0008` 아키텍처 다이어그램을 두 도메인 구조로 갱신
+
+### Phase 4 — 마무리
+
+- [ ] README 아키텍처 섹션 갱신
+- [ ] 월간 회고
+
+**Month 2 완료 조건**
+- [ ] 패키지가 계층이 아니라 도메인(`invoice/`, `vendor/`) 기준으로 나뉘어 있다
+- [ ] `Invoice`와 `Vendor`가 연관관계로 연결되어 동작한다
+- [ ] 왜 도메인 기준 패키지가 계층 기준보다 나은지 설명할 수 있다
 
 ---
 
