@@ -1,6 +1,6 @@
-package com.ham.invoiceapp;
+package com.ham.invoiceapp.invoice;
 
-public class ErrorResponse {
+class ErrorResponse {
 
     private String message;
     private int status;
