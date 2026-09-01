@@ -79,8 +79,8 @@
 
 ### Phase 1 — 기존 코드를 `invoice/` 패키지로 이동
 
-- [ ] `Invoice`/`InvoiceRequest`/`InvoiceResponse`/`InvoiceController`/`InvoiceService`/`InvoiceRepository`/`InvoiceNotFoundException`/`GlobalExceptionHandler`/`ErrorResponse`를 `com.ham.invoiceapp.invoice` 패키지로 이동
-- [ ] 패키지 밖에서 쓸 필요 없는 클래스(예: `ErrorResponse`, 헬퍼 성격 클래스)를 package-private으로 좁혀서 캡슐화 확인
+- [x] `Invoice`/`InvoiceRequest`/`InvoiceResponse`/`InvoiceController`/`InvoiceService`/`InvoiceRepository`/`InvoiceNotFoundException`/`GlobalExceptionHandler`/`ErrorResponse`를 `com.ham.invoiceapp.invoice` 패키지로 이동
+- [x] 패키지 밖에서 쓸 필요 없는 클래스(예: `ErrorResponse`, 헬퍼 성격 클래스)를 package-private으로 좁혀서 캡슐화 확인
 
 **완료 조건**: 이동 후 `./mvnw spring-boot:run` + `requests.http` 전체 요청 재확인, 기존 동작 그대로 유지
 
@@ -112,6 +112,8 @@
 ## 자주 막히는 곳 (누적)
 
 **DB 연결 실패** — 대부분 포트 또는 비밀번호 불일치. 에러 메시지 **마지막 줄부터** 읽는다.
+
+**로컬 실행과 컨테이너 실행 동시 충돌** — `docker-compose.yml`의 `app` 서비스(컨테이너화된 앱)와 로컬 `mvnw`/IntelliJ 실행이 동시에 8080을 쓰려고 하면 `Port 8080 was already in use`가 난다. 로컬에서 devtools 핫리로드로 개발할 때는 `docker compose stop app`으로 컨테이너 쪽만 내리고 `db`는 계속 띄워둔다. 또한 Docker Desktop이 꺼진 상태에서는 `docker compose` 명령 자체가 `dial unix .../docker.sock: no such file or directory`로 실패한다 — Docker Desktop이 켜져 있는지부터 확인.
 
 **`ddl-auto` 설정** — 학습 단계에서는 `update`. `create-drop`은 재시작마다 데이터가 날아간다. 기존 컬럼의 생성 전략 변경(예: AUTO→IDENTITY)은 반영 못 함 — 실무에서는 Flyway/Liquibase 같은 마이그레이션 툴을 쓴다(개념만, 아직 실습 안 함).
 

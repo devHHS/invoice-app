@@ -1,11 +1,15 @@
-package com.ham.invoiceapp;
+package com.ham.invoiceapp.invoice;
+
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-// DTO: 서버가 클라이언트에게 돌려주는 응답 데이터의 모양
-public class InvoiceResponse {
-
+// Entity: DB 테이블과 직접 매핑되는 객체, JPA/Hibernate가 관리
+@Entity
+public class Invoice {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String storeName;
@@ -16,15 +20,16 @@ public class InvoiceResponse {
 
     private String category;
 
-    public InvoiceResponse() {
-    }
+    public Invoice() {
 
-    public Long getId() {
-        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getStoreName() {

@@ -1,6 +1,6 @@
-package com.ham.invoiceapp;
+package com.ham.invoiceapp.invoice;
 
-public class InvoiceNotFoundException extends RuntimeException {
+class InvoiceNotFoundException extends RuntimeException {
 
     public InvoiceNotFoundException(Long id) {
         super("Invoice with id " + id + " not found");

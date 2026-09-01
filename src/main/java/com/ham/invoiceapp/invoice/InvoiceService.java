@@ -1,4 +1,4 @@
-package com.ham.invoiceapp;
+package com.ham.invoiceapp.invoice;
 
 import org.springframework.stereotype.Service;
 
