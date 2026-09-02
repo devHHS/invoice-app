@@ -123,6 +123,8 @@
 
 **예외를 던지는 것과 잡는 것은 별개 단계** — `throw`만 하고 아무도 `catch`(`@ExceptionHandler`)하지 않으면 Spring 기본값인 500으로 처리된다.
 
+**IntelliJ가 `@JoinColumn`/`@Column`에 "Cannot resolve column"이라고 경고함** — 실제 DB에는 컬럼이 있는데도 뜰 수 있다. 이 경고는 실제 DB를 매번 조회하는 게 아니라 IntelliJ Database 툴 창에 연결된 데이터소스가 캐시해둔 스키마 정보를 기준으로 검사하기 때문 — 앱을 재시작해도 이 캐시는 자동 갱신 안 됨. Database 툴 창에서 해당 데이터소스 우클릭 → Refresh로 해결.
+
 ## 이해 체크 (누적, 주말/세션 끝에 답할 수 있어야 한다)
 
 - `@SpringBootApplication` 하나가 하는 일 세 가지는?

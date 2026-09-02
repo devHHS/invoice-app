@@ -1,5 +1,6 @@
 package com.ham.invoiceapp.invoice;
 
+import com.ham.invoiceapp.vendor.Vendor;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -13,6 +14,10 @@ public class Invoice {
     private Long id;
 
     private String storeName;
+
+    @ManyToOne
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
 
     private BigDecimal amount;
 
@@ -38,6 +43,14 @@ public class Invoice {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public Vendor getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
     }
 
     public BigDecimal getAmount() {
