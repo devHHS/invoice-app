@@ -86,8 +86,9 @@
 
 ### Phase 2 — 두 번째 도메인(`Vendor`) 추가
 
-- [ ] `Vendor` 엔티티 신규 작성 (`com.ham.invoiceapp.vendor` 패키지), 지금 `Invoice.storeName`(문자열)을 `Vendor`와의 연관관계로 분리
-- [ ] `@ManyToOne` 연관관계 매핑 — "왜 문자열 대신 연관관계로 쪼개는가" 개념 정리
+- [x] `Vendor` 엔티티 신규 작성 (`com.ham.invoiceapp.vendor` 패키지)
+- [x] `@ManyToOne` 연관관계 매핑 — "왜 문자열 대신 연관관계로 쪼개는가" 개념 정리, `Invoice.vendor` 필드 추가 + `InvoiceService`에서 조회·연결까지 완료(단, `Invoice.storeName`은 아직 병행 유지 — 완전 제거는 다음 항목)
+- [ ] `Invoice.storeName`(문자열) 필드 제거, 검색 기능을 `Vendor` 기준으로 전환
 - [ ] `Vendor` 자체도 3계층(Controller/Service/Repository) 갖춘 독립 도메인으로 완성
 
 **완료 조건**: `Invoice`가 `Vendor`를 참조하는 구조로 동작, 기존 검색 기능이 `Vendor` 기준으로도 동작

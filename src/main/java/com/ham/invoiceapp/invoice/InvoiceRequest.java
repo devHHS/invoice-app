@@ -13,6 +13,8 @@ public class InvoiceRequest {
     @NotBlank(message = "StoreName is mandatory")
     private String storeName;
 
+    private Long vendorId;
+
     @NotNull(message = "Amount is mandatory")
     @Positive(message = "Amount must be positive")
     private BigDecimal amount;
@@ -32,6 +34,14 @@ public class InvoiceRequest {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public Long getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(Long vendorId) {
+        this.vendorId = vendorId;
     }
 
     public BigDecimal getAmount() {

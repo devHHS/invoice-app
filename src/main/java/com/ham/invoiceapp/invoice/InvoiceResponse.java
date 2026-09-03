@@ -10,6 +10,8 @@ public class InvoiceResponse {
 
     private String storeName;
 
+    private String vendorName;
+
     private BigDecimal amount;
 
     private LocalDateTime issuedAt;
@@ -33,6 +35,14 @@ public class InvoiceResponse {
 
     public void setStoreName(String storeName) {
         this.storeName = storeName;
+    }
+
+    public String getVendorName() {
+        return vendorName;
+    }
+
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
     }
 
     public BigDecimal getAmount() {

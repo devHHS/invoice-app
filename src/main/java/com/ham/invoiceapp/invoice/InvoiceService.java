@@ -1,5 +1,8 @@
 package com.ham.invoiceapp.invoice;
 
+import com.ham.invoiceapp.vendor.Vendor;
+import com.ham.invoiceapp.vendor.VendorNotFoundException;
+import com.ham.invoiceapp.vendor.VendorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
+    private final VendorRepository vendorRepository;
 
     private Invoice toEntity(InvoiceRequest invoiceRequest) {
         Invoice invoice = new Invoice();
@@ -16,6 +20,13 @@ public class InvoiceService {
         invoice.setAmount(invoiceRequest.getAmount());
         invoice.setIssuedAt(invoiceRequest.getIssuedAt());
         invoice.setCategory(invoiceRequest.getCategory());
+
+        if (invoiceRequest.getVendorId() != null) {
+            Vendor vendor = vendorRepository.findById(invoiceRequest.getVendorId())
+                    .orElseThrow(() -> new VendorNotFoundException(invoiceRequest.getVendorId()));
+            invoice.setVendor(vendor);
+        }
+
         return invoice;
     }
 
@@ -26,11 +37,18 @@ public class InvoiceService {
         invoiceResponse.setAmount(invoice.getAmount());
         invoiceResponse.setIssuedAt(invoice.getIssuedAt());
         invoiceResponse.setCategory(invoice.getCategory());
+
+        if (invoice.getVendor() != null) {
+            invoiceResponse.setVendorName(invoice.getVendor().getStoreName());
+        }
+
         return invoiceResponse;
+
     }
 
-    public InvoiceService(InvoiceRepository invoiceRepository) {
+    public InvoiceService(InvoiceRepository invoiceRepository,  VendorRepository vendorRepository) {
         this.invoiceRepository = invoiceRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     public InvoiceResponse save(InvoiceRequest invoiceRequest) {
