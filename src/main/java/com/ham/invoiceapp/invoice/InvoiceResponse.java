@@ -8,8 +8,6 @@ public class InvoiceResponse {
 
     private Long id;
 
-    private String storeName;
-
     private String vendorName;
 
     private BigDecimal amount;
@@ -28,15 +26,7 @@ public class InvoiceResponse {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
+    
     public String getVendorName() {
         return vendorName;
     }

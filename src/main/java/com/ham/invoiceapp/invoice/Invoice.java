@@ -13,8 +13,6 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String storeName;
-
     @ManyToOne
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
@@ -36,15 +34,7 @@ public class Invoice {
     public Long getId() {
         return id;
     }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
+    
     public Vendor getVendor() {
         return vendor;
     }

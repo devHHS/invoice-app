@@ -10,9 +10,8 @@ import java.time.LocalDateTime;
 // DTO: 클라이언트가 보내는 요청 데이터의 모양, Entity와 무관한 평범한 자바 클래스
 public class InvoiceRequest {
 
-    @NotBlank(message = "StoreName is mandatory")
-    private String storeName;
 
+    @NotNull(message = "vendorId is mandatory ")
     private Long vendorId;
 
     @NotNull(message = "Amount is mandatory")
@@ -26,14 +25,6 @@ public class InvoiceRequest {
     private String category;
 
     public InvoiceRequest() {
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
     }
 
     public Long getVendorId() {

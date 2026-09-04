@@ -1,5 +1,5 @@
-### 단건 조회
-GET http://localhost:8080/invoices?storeName=스타
+### 검색 (Vendor 이름 기준)
+GET http://localhost:8080/invoices?vendorName=스타
 
 ### 전체 조회
 GET http://localhost:8080/invoices
@@ -9,7 +9,7 @@ POST http://localhost:8080/invoices
 Content-Type: application/json
 
 {
-  "storeName": "Cafe Bean",
+  "vendorId": 5,
   "amount": 3,
   "issuedAt": "2026-09-03T10:00:00",
   "category": "Cafe"
@@ -20,7 +20,7 @@ PUT http://localhost:8080/invoices/99999
 Content-Type: application/json
 
 {
-  "storeName": "스타벅스 인천공항점",
+  "vendorId": 3,
   "amount": 3,
   "issuedAt": "2026-08-19T10:00:00",
   "category": "카페"
