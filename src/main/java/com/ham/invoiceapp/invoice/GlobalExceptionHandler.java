@@ -1,5 +1,6 @@
 package com.ham.invoiceapp.invoice;
 
+import com.ham.invoiceapp.vendor.VendorNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,6 +13,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvoiceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleInvoiceNotFoundException(InvoiceNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getMessage(), 404));
+    }
+
+    // TODO: handleInvoiceNotFoundException을 그대로 참고해서 VendorNotFoundException 버전을 채워보자
+    // (타입과 메서드 이름만 Vendor로 바꾸면 된다)
+    @ExceptionHandler(VendorNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleVendorNotFoundException(VendorNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getMessage(), 404));
     }
 
