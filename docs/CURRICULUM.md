@@ -95,8 +95,15 @@
 
 ### Phase 3 — 모듈 경계 규칙 정리
 
-- [ ] 도메인 간 참조 규칙 정리 (직접 참조 허용 범위, 순환 참조 금지)
+- [x] 도메인 간 참조 규칙 정리 (직접 참조 허용 범위, 순환 참조 금지)
 - [ ] `reference/0008` 아키텍처 다이어그램을 두 도메인 구조로 갱신
+
+**모듈 경계 규칙 (2026-09-08 확정)**
+
+- **단방향 참조만 허용**: `invoice` 패키지는 `vendor` 패키지를 참조할 수 있다(`Invoice.vendor` 필드, `InvoiceService`의 `VendorRepository` 조회, `GlobalExceptionHandler`의 `VendorNotFoundException` 처리). 반대로 `vendor` 패키지는 `invoice` 패키지를 참조하지 않는다.
+- **이유**: `Invoice`가 `Vendor`를 참조하는 게 도메인 의미상 자연스럽다(인보이스가 거래처를 알아야 하지, 거래처가 인보이스를 알 필요는 없다). 반대 방향 참조를 허용하면 두 패키지가 서로를 알아야 하는 **순환 참조**가 생겨, 어느 한쪽만 따로 이해하거나 테스트하기 어려워진다.
+- **검증 방법**: `grep -rn "import com.ham.invoiceapp" src/main/java/com/ham/invoiceapp/vendor/`로 `vendor` 패키지 안에서 `invoice`를 참조하는 줄이 하나도 없는지 확인한다 (2026-09-08 기준 0건, 규칙 준수 확인됨).
+- **다음 도메인 추가 시에도 이 규칙 유지**: 새 도메인이 `Invoice`나 `Vendor`를 참조하는 건 괜찮지만, `Invoice`/`Vendor`가 새 도메인을 거꾸로 참조하게 만들지 않는다.
 
 ### Phase 4 — 마무리
 
