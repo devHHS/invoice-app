@@ -117,6 +117,51 @@
 
 ---
 
+## Month 3 — 테스트 코드 (JUnit 5 + Mockito + MockMvc)
+
+지금까지 5개 CRUD + 검색 + 두 도메인 연관관계까지 전부 `requests.http`로 손으로만 검증해왔다. Month 3는 이걸 자동화된 테스트로 대체한다. 새 의존성 추가는 없다 — `spring-boot-starter-test`(Initializr 생성 시 기본 포함)에 JUnit 5·Mockito·MockMvc·AssertJ가 전부 들어있다.
+
+**순서 원칙**: 로직이 단순한 것 → 복잡한 것, 단위 테스트(Service) → 통합 테스트(Controller) 순으로 간다. 테스트 피라미드(작은 단위 테스트 다수, 큰 통합 테스트 소수) 원칙을 따른다.
+
+### Phase 1 — VendorService 단위 테스트 (JUnit + Mockito 패턴 익히기)
+
+- [ ] `@ExtendWith(MockitoExtension.class)`로 순수 단위 테스트 클래스 작성, `VendorRepository`를 `@Mock`으로 대체
+- [ ] `save`/`findAll`/`findById`(정상)/`findById`(존재하지 않는 id → `VendorNotFoundException`) 테스트
+- [ ] `update`/`delete`도 동일 패턴으로 (존재/미존재 분기 둘 다)
+
+**완료 조건**: `./mvnw test`로 `VendorService` 테스트 전부 통과 / Repository를 mock으로 대체했기 때문에 실제 DB·Spring 컨텍스트 없이 실행됨을 설명할 수 있다
+
+### Phase 2 — InvoiceService 단위 테스트 (더 복잡한 케이스 적용)
+
+- [ ] `InvoiceRepository`, `VendorRepository` 둘 다 `@Mock`으로 대체
+- [ ] `save` — 정상 케이스(`Vendor` 조회 성공) + 실패 케이스(존재하지 않는 `vendorId` → `VendorNotFoundException`)
+- [ ] `findAll` — 검색어 없음/있음 두 분기 각각 테스트
+- [ ] `toEntity`/`toResponse` 변환이 올바른지(응답의 `vendorName`이 실제 `Vendor.storeName`과 일치하는지) 검증
+
+**완료 조건**: 분기(if/else) 하나당 테스트 케이스가 최소 하나씩 대응된다는 걸 스스로 확인
+
+### Phase 3 — Controller 통합 테스트 (MockMvc)
+
+- [ ] `@SpringBootTest` + `@AutoConfigureMockMvc`(또는 `@WebMvcTest`) 중 어떤 걸 쓸지 차이를 먼저 이해하고 선택
+- [ ] `InvoiceController`의 POST(성공/검증 실패 400)·GET(단건/전체)·PUT·DELETE를 MockMvc로 재현
+- [ ] 존재하지 않는 id 조회 시 404 + `ErrorResponse` 형태까지 검증
+
+**완료 조건**: `requests.http`로 손으로 하던 시나리오가 전부 `./mvnw test` 한 번으로 자동 검증된다
+
+### Phase 4 — 마무리
+
+- [ ] `VendorController`도 같은 패턴으로 최소한의 MockMvc 테스트 추가
+- [ ] README에 "테스트 실행 방법"(`./mvnw test`) 한 줄 추가
+- [ ] 월간 회고
+
+**Month 3 완료 조건**
+- [ ] Service 계층에 Mockito 기반 단위 테스트가 있다
+- [ ] Controller 계층에 MockMvc 기반 통합 테스트가 있다
+- [ ] 단위 테스트와 통합 테스트의 차이(무엇을 mock하는가, Spring 컨텍스트를 띄우는가)를 설명할 수 있다
+- [ ] Month 4(Angular)부터는 새 기능을 추가할 때 테스트를 같이 작성하는 습관으로 이어간다
+
+---
+
 ## 자주 막히는 곳 (누적)
 
 **DB 연결 실패** — 대부분 포트 또는 비밀번호 불일치. 에러 메시지 **마지막 줄부터** 읽는다.
