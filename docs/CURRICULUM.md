@@ -125,8 +125,8 @@
 
 ### Phase 1 — VendorService 단위 테스트 (JUnit + Mockito 패턴 익히기)
 
-- [ ] `@ExtendWith(MockitoExtension.class)`로 순수 단위 테스트 클래스 작성, `VendorRepository`를 `@Mock`으로 대체
-- [ ] `save`/`findAll`/`findById`(정상)/`findById`(존재하지 않는 id → `VendorNotFoundException`) 테스트
+- [x] `@ExtendWith(MockitoExtension.class)`로 순수 단위 테스트 클래스 작성, `VendorRepository`를 `@Mock`으로 대체
+- [x] `save`/`findAll`/`findById`(정상)/`findById`(존재하지 않는 id → `VendorNotFoundException`) 테스트
 - [ ] `update`/`delete`도 동일 패턴으로 (존재/미존재 분기 둘 다)
 
 **완료 조건**: `./mvnw test`로 `VendorService` 테스트 전부 통과 / Repository를 mock으로 대체했기 때문에 실제 DB·Spring 컨텍스트 없이 실행됨을 설명할 수 있다

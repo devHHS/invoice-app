@@ -7,9 +7,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 // TODO: 이 클래스가 Spring 컨테이너 없이 순수 Java로 실행되는 "단위 테스트"가 되게 하려면
@@ -43,7 +45,7 @@ class VendorServiceTest {
 
         // Assert
         // TODO: 결과의 storeName이 "교보문고"인지 확인하자.
-        assertThat(vendor.getStoreName()).isEqualTo("교보문고");
+        assertThat(result.getStoreName()).isEqualTo("교보문고");
     }
 
     @Test
@@ -76,23 +78,28 @@ class VendorServiceTest {
 
         // TODO: vendorRepository.findById(1L)이 Optional.of(vendor)를 리턴하도록 설정.
         //       VendorRepository의 findById가 어떤 타입을 리턴하는지 JpaRepository 시그니처를 떠올려보자.
+        when(vendorRepository.findById(1L)).thenReturn(Optional.of(vendor));
 
         // Act
         // TODO: vendorService.findById(1L) 호출.
+        Vendor result = vendorService.findById(1L);
 
         // Assert
         // TODO: 결과가 vendor와 같은지 확인.
+        assertThat(result.getId()).isEqualTo(1L);
     }
 
     @Test
     void findById_존재하지_않으면_VendorNotFoundException을_던진다() {
         // Arrange
         // TODO: vendorRepository.findById(999L)이 Optional.empty()를 리턴하도록 설정.
+        when(vendorRepository.findById(999L)).thenReturn(Optional.empty());
 
         // Act + Assert
         // TODO: vendorService.findById(999L)을 호출하면 VendorNotFoundException이 던져지는지 확인.
         //       assertThatThrownBy(() -> ...) 형태 — reference/0016 참고.
         //       VendorService.findById()의 orElseThrow(...) 코드를 다시 보고, 어떤 조건에서 이 예외가 나오는지 짚어보자.
+        assertThatThrownBy(()-> vendorService.findById(999L)).isInstanceOf(VendorNotFoundException.class);
     }
 
     // TODO: update()도 같은 AAA 패턴으로 직접 작성해보기. 존재하는 id / 존재하지 않는 id, 두 경우 모두 다뤄야 한다.
