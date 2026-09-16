@@ -105,6 +105,38 @@ class VendorServiceTest {
     // TODO: update()도 같은 AAA 패턴으로 직접 작성해보기. 존재하는 id / 존재하지 않는 id, 두 경우 모두 다뤄야 한다.
     //       VendorService.update()가 존재 여부를 어떻게 확인하는지(existsById) 다시 보고,
     //       그 메서드 호출 결과를 mock으로 어떻게 설정할지 생각해보자.
+    @Test
+    void update_존재하지_않으면_VendorNotFoundException을_던진다(){
+        // Arrange
+        when(vendorRepository.existsById(999L)).thenReturn(false);
+        Vendor vendor = new Vendor();
+
+        // Act + Assert
+        assertThatThrownBy(()-> vendorService.update(999L, vendor)).isInstanceOf(VendorNotFoundException.class);
+
+    }
+
+    @Test
+    void  update_존재하면_수정된_Vendor를_반환한다(){
+        // Arrange
+        Vendor vendor = new Vendor();
+        vendor.setId(1L);
+        vendor.setStoreName("Starbucks");
+
+        when(vendorRepository.existsById(1L)).thenReturn(true);
+
+        vendor.setStoreName("orSlow");
+        when(vendorRepository.save(vendor)).thenReturn(vendor);
+
+        // Act
+        Vendor result = vendorService.update(1L, vendor);
+
+        // Assert
+        assertThat(result.getStoreName()).isEqualTo("orSlow");
+        assertThat(result.getId()).isEqualTo(1L);
+    }
+
+
 
     // TODO: delete()도 같은 패턴으로. update()와 마찬가지로 존재/미존재 두 경우.
     //       delete()는 리턴값이 없다(void) — 결과값을 assert하는 대신 verify(...)로
