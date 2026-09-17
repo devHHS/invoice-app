@@ -134,11 +134,14 @@
 ### Phase 2 — InvoiceService 단위 테스트 (더 복잡한 케이스 적용)
 
 - [ ] `InvoiceRepository`, `VendorRepository` 둘 다 `@Mock`으로 대체
-- [ ] `save` — 정상 케이스(`Vendor` 조회 성공) + 실패 케이스(존재하지 않는 `vendorId` → `VendorNotFoundException`)
-- [ ] `findAll` — 검색어 없음/있음 두 분기 각각 테스트
-- [ ] `toEntity`/`toResponse` 변환이 올바른지(응답의 `vendorName`이 실제 `Vendor.storeName`과 일치하는지) 검증
+- [ ] `save` — 정상 케이스(`Vendor` 조회 성공) + 실패 케이스(존재하지 않는 `vendorId` → `toEntity` 내부에서 `VendorNotFoundException`)
+- [ ] `findAll` — 검색어(`vendorName`) 없음/있음 두 분기 각각 테스트
+- [ ] `findById` — 정상/예외(`InvoiceNotFoundException`) — `VendorService.findById`와 동일 패턴
+- [ ] `update` — **분기가 두 개**: (1) `invoiceId` 자체가 없는 경우 → 즉시 `InvoiceNotFoundException` (2) `invoiceId`는 있지만 `toEntity`가 재사용되면서 그 안의 `vendorId`가 없는 경우 → `VendorNotFoundException`. 정상 케이스까지 총 3가지
+- [ ] `delete` — 정상/예외(`InvoiceNotFoundException`) — `VendorService.delete`와 동일 패턴, `verify(invoiceRepository).deleteById(id)`
+- [ ] (별도 테스트 아님, 확인만) `toEntity`/`toResponse`는 `private`이라 직접 테스트할 수 없다 — `save`/`findAll`/`update`가 리턴하는 `InvoiceResponse.vendorName`이 실제 `Vendor.storeName`과 일치하는지로 **간접 검증**된다는 것을 스스로 설명할 수 있는지 확인
 
-**완료 조건**: 분기(if/else) 하나당 테스트 케이스가 최소 하나씩 대응된다는 걸 스스로 확인
+**완료 조건**: 분기(if/else) 하나당 테스트 케이스가 최소 하나씩 대응된다는 걸 스스로 확인 (`update`는 분기가 2개이므로 테스트도 최소 3개)
 
 ### Phase 3 — Controller 통합 테스트 (MockMvc)
 
