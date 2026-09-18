@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 // TODO: 이 클래스가 Spring 컨테이너 없이 순수 Java로 실행되는 "단위 테스트"가 되게 하려면
@@ -137,9 +138,32 @@ class VendorServiceTest {
     }
 
 
-
     // TODO: delete()도 같은 패턴으로. update()와 마찬가지로 존재/미존재 두 경우.
     //       delete()는 리턴값이 없다(void) — 결과값을 assert하는 대신 verify(...)로
     //       "그 메서드가 실제로 호출됐는지"를 확인해야 한다. reference/0016의 verify 설명 참고.
+    @Test
+    void delete_존재하지_않으면_exception(){
+        // Arrange
+        when(vendorRepository.existsById(999L)).thenReturn(false);
+
+        // Act + Assert
+        assertThatThrownBy(()-> vendorService.delete(999L)).isInstanceOf(VendorNotFoundException.class);
+
+    }
+
+
+    @Test
+    void delete_존재하면_삭제(){
+        //Arrange
+        when(vendorRepository.existsById(1L)).thenReturn(true);
+
+        //Act
+        vendorService.delete(1L);
+
+        //Assert
+        verify(vendorRepository).deleteById(1L);
+
+    }
+
 
 }
