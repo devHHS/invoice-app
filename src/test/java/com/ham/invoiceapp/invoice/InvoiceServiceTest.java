@@ -77,6 +77,15 @@ class InvoiceServiceTest {
     void save_Vendor가_존재하지_않으면_VendorNotFoundException을_던진다() {
         // TODO: 힌트 없이 직접. vendorRepository.findById(...)가 Optional.empty()를 리턴하도록 stub하면
         //       toEntity() 안에서 무슨 일이 일어날지 예측해보고 작성하자.
+        // Arrange
+        InvoiceRequest invoiceRequest = new InvoiceRequest();
+        invoiceRequest.setVendorId(999L);
+        when(vendorRepository.findById(999L)).thenReturn(Optional.empty());
+
+        // Act + Assert
+        assertThatThrownBy(() -> invoiceService.save(invoiceRequest)).isInstanceOf(VendorNotFoundException.class);
+
+
     }
 
     @Test

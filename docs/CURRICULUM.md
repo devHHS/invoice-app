@@ -133,8 +133,8 @@
 
 ### Phase 2 — InvoiceService 단위 테스트 (더 복잡한 케이스 적용)
 
-- [ ] `InvoiceRepository`, `VendorRepository` 둘 다 `@Mock`으로 대체
-- [ ] `save` — 정상 케이스(`Vendor` 조회 성공) + 실패 케이스(존재하지 않는 `vendorId` → `toEntity` 내부에서 `VendorNotFoundException`)
+- [x] `InvoiceRepository`, `VendorRepository` 둘 다 `@Mock`으로 대체
+- [x] `save` — 정상 케이스(`Vendor` 조회 성공) + 실패 케이스(존재하지 않는 `vendorId` → `toEntity` 내부에서 `VendorNotFoundException`)
 - [ ] `findAll` — 검색어(`vendorName`) 없음/있음 두 분기 각각 테스트
 - [ ] `findById` — 정상/예외(`InvoiceNotFoundException`) — `VendorService.findById`와 동일 패턴
 - [ ] `update` — **분기가 두 개**: (1) `invoiceId` 자체가 없는 경우 → 즉시 `InvoiceNotFoundException` (2) `invoiceId`는 있지만 `toEntity`가 재사용되면서 그 안의 `vendorId`가 없는 경우 → `VendorNotFoundException`. 정상 케이스까지 총 3가지
