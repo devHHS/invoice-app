@@ -90,12 +90,41 @@ class InvoiceServiceTest {
 
     @Test
     void findAll_검색어가_없으면_전체_목록을_반환한다() {
-        // TODO: InvoiceService.findAll(null)이 타는 분기와, 그 분기가 부르는 InvoiceRepository 메서드를 확인하고 stub하자.
+        // Arrange
+        // TODO 1: Vendor 하나를 준비하자 (save() 테스트에서 했던 것과 같은 방식).
+        Vendor vendor = new Vendor();
+        vendor.setId(1L);
+        vendor.setStoreName("Starbucks");
+
+        // TODO 2: Invoice 하나를 준비하자 (new Invoice() + setId/setVendor/setAmount/setIssuedAt/setCategory).
+        //         이때 setVendor(...)를 빠뜨리면 안 된다 — toResponse()가 invoice.getVendor().getStoreName()을 부르기 때문에,
+        //         vendor가 없는 Invoice를 넘기면 NullPointerException이 난다.
+        Invoice invoice = new Invoice();
+        invoice.setId(1L);
+        invoice.setVendor(vendor);
+        invoice.setAmount(BigDecimal.valueOf(3));
+        invoice.setIssuedAt(LocalDateTime.now());
+        invoice.setCategory("Cafe");
+
+        // TODO 3: InvoiceService.findAll(null)을 실행하면 InvoiceRepository의 어떤 메서드가 불리는지
+        //         InvoiceService.java 53~59번째 줄을 다시 읽고 확인하자. 그 메서드가 List.of(위에서 만든 Invoice)를 리턴하도록 stub하자.
+        when(invoiceRepository.findAll()).thenReturn(List.of(invoice));
+
+        // Act
+        // TODO 4: invoiceService.findAll(null) 호출. (검색어 없음 = null)
+        List<InvoiceResponse> result = invoiceService.findAll(null);
+
+        // Assert
+        // TODO 5: 결과 리스트 크기가 1인지 확인하자. (원한다면 결과의 vendorName도 같이 확인)
+        assertThat(result).hasSize(1);
+
     }
 
     @Test
     void findAll_검색어가_있으면_필터링된_목록을_반환한다() {
-        // TODO: 검색어가 있을 때 타는 분기는 다른 메서드를 부른다 — InvoiceRepository.java 참고.
+        // 위 테스트와 구조는 같다. 딱 하나 다른 점: InvoiceRepository의 어떤 메서드를 stub해야 하는지
+        // (InvoiceRepository.java에 findAll() 말고 메서드가 하나 더 있다) 와, Act에서 findAll(null) 대신
+        // findAll("검색어")를 호출한다는 것.
     }
 
     @Test
