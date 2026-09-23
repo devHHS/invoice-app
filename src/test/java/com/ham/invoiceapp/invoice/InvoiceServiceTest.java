@@ -125,6 +125,27 @@ class InvoiceServiceTest {
         // 위 테스트와 구조는 같다. 딱 하나 다른 점: InvoiceRepository의 어떤 메서드를 stub해야 하는지
         // (InvoiceRepository.java에 findAll() 말고 메서드가 하나 더 있다) 와, Act에서 findAll(null) 대신
         // findAll("검색어")를 호출한다는 것.
+
+        // Assert
+        Vendor vendor = new Vendor();
+        vendor.setId(1L);
+        vendor.setStoreName("Starbucks");
+
+        Invoice invoice = new Invoice();
+        invoice.setId(1L);
+        invoice.setVendor(vendor);
+        invoice.setAmount(BigDecimal.valueOf(3));
+        invoice.setIssuedAt(LocalDateTime.now());
+        invoice.setCategory("Cafe");
+
+        when(invoiceRepository.findAllByVendor_StoreNameContaining("Starbucks")).thenReturn(List.of(invoice));
+
+        // Act
+        List<InvoiceResponse> result = invoiceService.findAll("Starbucks");
+
+        // Assert
+        assertThat(result.getFirst().getVendorName()).isEqualTo(invoice.getVendor().getStoreName());
+
     }
 
     @Test
